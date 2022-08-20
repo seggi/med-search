@@ -1,6 +1,6 @@
 import { Dialect, Sequelize } from 'sequelize';
 
-export const connect = () => {
+const connect = () => {
     const hostName = process.env.DB_HOST;
     const userName = process.env.DB_USER as string;
     const database = process.env.DB_NAME as string;
@@ -22,3 +22,5 @@ export const connect = () => {
 
     return sequelizeConnection;
 }
+
+export default connect;
