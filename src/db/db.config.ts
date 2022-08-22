@@ -1,4 +1,5 @@
 import { Dialect, Sequelize } from 'sequelize';
+import "dotenv/config";
 
 const connect = () => {
     const hostName = process.env.DB_HOST;

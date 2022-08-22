@@ -9,9 +9,9 @@ interface UsersAttributes {
     username: string;
     password: string;
     birthDate?: Date;
-    createAt?: Date;
-    updateAt?: Date;
-    deleteAt?: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
+    deletedAt?: Date;
 }
 
 
