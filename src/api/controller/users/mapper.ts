@@ -1,4 +1,4 @@
-import { UserOutput } from './../../../db/model/Users';
+import { UserOutput } from '../../../db/model/users';
 import { User } from "../../interfaces";
 
 export const toUser = (user: UserOutput): User => {

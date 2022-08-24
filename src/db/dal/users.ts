@@ -1,5 +1,5 @@
 import { GetUsersFilters } from './types';
-import  Users, { UserInput, UserOutput } from './../model/Users';
+import  Users, { UserInput, UserOutput } from '../model/users';
 import { Op } from 'sequelize';
 import models from "../model";
 

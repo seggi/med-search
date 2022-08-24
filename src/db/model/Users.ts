@@ -1,5 +1,6 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import connect from "../db.config";
+import Sickness from "./sickness";
 
 
 interface UsersAttributes {
@@ -19,15 +20,15 @@ export type UserInput = Optional<UsersAttributes, 'id' | 'firstName' | 'lastName
 export type UserOutput = Required<UsersAttributes>
 
 class Users extends Model<UsersAttributes, UserInput> implements UsersAttributes {
-    public id!: number
-    public firstName!: string;
-    public lastName!: string;
-    public username!: string;
-    public password!: string;
-    public birthDate!: Date;
-    public readonly createAt!: Date | undefined;
-    public readonly updateAt!: Date | undefined;
-    public readonly deleteAt!: Date | undefined;
+    declare id: number;
+    declare firstName: string;
+    declare lastName: string;
+    declare username: string;
+    declare password: string;
+    declare birthDate: Date;
+    declare readonly createAt: Date | undefined;
+    declare readonly updateAt: Date | undefined;
+    declare readonly deleteAt: Date | undefined;
 
 }
 
@@ -59,9 +60,10 @@ Users.init ({
     },
 
 }, {
-    timestamps: true,
     sequelize: connect(),
-    paranoid: true
+    timestamps: true,
+    paranoid: true,
+    modelName: "Users"
 })
 
 export default Users;
