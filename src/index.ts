@@ -4,7 +4,11 @@ import dotenv from "dotenv";
 import routes from "./api/routes";
 import dbInit from "./db/init";
 
+
 dbInit()
+
+const nodeEnv: string = process.env.NODE_ENV || 'production';
+
 
 const PORT = process.env.PORT 
 const startUpAppMessage = `Welcome to Med-Search App API! \n Access our Endpoint at http://localhost:${PORT}/api/v1`
@@ -31,6 +35,8 @@ export const App = () => {
 
 export const start = () => {
     const app = App()
+
+    
 
     try {
         app.listen(PORT, () => {
