@@ -9,6 +9,7 @@ services:
       dockerfile: .
     volumes:
       - .:/usr/src/app/
+      -  /usr/src/app/node_modules
     ports:
       - ${PORT}:${PORT}
     depends_on:

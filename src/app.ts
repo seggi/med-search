@@ -1,3 +1,4 @@
+import { tokenGuard } from './api/middleware/tokenGuard';
 import express, { Application } from "express";
 import bodyParser from "body-parser";
 import "dotenv/config";
@@ -10,16 +11,14 @@ import { DEBUG_ERROR_MESSAGE, DEBUG_MESSAGE } from "./constants/appText";
 
 dbInit()
 
-const nodeEnv: string = process.env.NODE_ENV || 'production';
-
 export class App {
     private app: Application;
 
     constructor(private port?: number | string) {
         this.app = express()
         this.settings()
-        // this.authRoute()
         this.publicRoute()
+        this.privateRoute()
     }
 
     settings() {
@@ -35,9 +34,10 @@ export class App {
     }
 
     // Protected Routes
-    // authRoute() {
-    //     this.app.use('/api/v1',)
-    // }
+    privateRoute() {
+        this.app.use(tokenGuard())
+        this.app.use('/api/v2',  publicRoutes)
+    }
 
     async listen() {
         
