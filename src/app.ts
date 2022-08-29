@@ -1,21 +1,16 @@
-import express, { Application, Request, Response } from "express";
+import express, { Application } from "express";
 import bodyParser from "body-parser";
 import "dotenv/config";
 import cors from "cors";
 
 import publicRoutes from "./api/routes/publicRoutes";
 import dbInit from "./db/init";
+import { DEBUG_ERROR_MESSAGE, DEBUG_MESSAGE } from "./constants/appText";
 
 
 dbInit()
 
 const nodeEnv: string = process.env.NODE_ENV || 'production';
-
-
-// const startUpAppMessage = `Welcome to Med-Search App API! \n Access our Endpoint at http://localhost:${PORT}/api/v1`
-// const debugMessage = "Server is running on http://localhost:";
-// const debugErrorMessage = "Error occurred:"
-
 
 export class App {
     private app: Application;
@@ -45,7 +40,12 @@ export class App {
     // }
 
     async listen() {
-        this.app.listen(this.app.get('port'));
-        console.log('server started on port', this.app.get('port'))
+        
+        try {
+            this.app.listen(this.app.get('port'));
+            console.log(DEBUG_MESSAGE, this.app.get('port'))
+        } catch (error: any) {
+            console.log(`${DEBUG_ERROR_MESSAGE} ${error.message}`)
+        }
     }
 }
