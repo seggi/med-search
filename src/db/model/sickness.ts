@@ -1,8 +1,5 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import connect from "../db.config";
-import Advices from './Advice';
-import Foods from './foods';
-import Medicines from './medicines';
 import Users from './users';
 
 interface SicknessAttributes {
