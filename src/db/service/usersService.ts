@@ -16,6 +16,14 @@ export const getById = (id: number): Promise<any> => {
     return userDal.getById(id)
 }
 
+export const getByEmail = (email: string, jwt: any, secret: any): Promise<any> => {
+    return userDal.getByEmail(email, jwt,  secret);
+}
+
+export const getUserById = (id: number , user: any): Promise<any> => {
+    return userDal.getUserById(id, user);
+}
+
 export const deleteById = (id: number): Promise<any> => {
     return userDal.deleteById(id)
 }

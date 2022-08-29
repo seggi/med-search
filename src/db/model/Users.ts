@@ -5,6 +5,7 @@ import Sickness from "./sickness";
 
 interface UsersAttributes {
     id: number;
+    email: string;
     firstName: string;
     lastName: string;
     username: string;
@@ -16,11 +17,12 @@ interface UsersAttributes {
 }
 
 
-export type UserInput = Optional<UsersAttributes, 'id' | 'firstName' | 'lastName' | 'birthDate'>
+export type UserInput = Optional<UsersAttributes, 'id' | 'firstName' | 'lastName' | 'birthDate' | 'email'>
 export type UserOutput = Required<UsersAttributes>
 
 class Users extends Model<UsersAttributes, UserInput> implements UsersAttributes {
     declare id: number;
+    declare email: string;
     declare firstName: string;
     declare lastName: string;
     declare username: string;
@@ -37,6 +39,10 @@ Users.init ({
         type: DataTypes.INTEGER.UNSIGNED,
         autoIncrement: true,
         primaryKey: true
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: true,
     },
     firstName: {
         type: DataTypes.STRING,

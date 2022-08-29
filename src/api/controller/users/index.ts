@@ -1,3 +1,8 @@
+import 'dotenv/config';
+import bcrypt from "bcrypt";
+import jwt  from 'jsonwebtoken';
+import  bluebird from "bluebird";
+
 import * as service from '../../../db/service/usersService';
 import { CreateUserDTO, FilterUserDTO, UpdateUserDTO } from '../../dto/user.dto';
 import { User } from '../../interfaces';
@@ -22,4 +27,62 @@ export const deleteById = async(id: number): Promise<boolean> => {
 
 export const getAll = async (filters: FilterUserDTO): Promise<User> => {
     return (await service.getAll(filters)).map(mapper.toUser)
+}
+
+export class UserController {
+    private readonly _saltRounds = process.env.SALT_ROUNDS || 12;
+    private readonly _jwtSecret = process.env.JWT_SECRET || "";
+
+    static get userAttributes() {
+        return [
+            "id",
+            "email",
+            "firstName",
+            "lastName",
+            "username",
+            "birthDate",
+        ];
+    }
+
+    private static _user: any;
+
+    static get user() {
+        return UserController._user;
+    }
+
+    async register({
+        firstName, lastName, username, birthDate, email, password
+    } : User) {
+        const hash = await bcrypt.hash(password, this._saltRounds);
+        const u = await service.create({
+            firstName, lastName, email, username, password: hash
+        });
+
+        return  this.getUserById(u!.id);
+    }
+
+    async login({ email }: User ) {
+        return await service.getByEmail(email, jwt, this._jwtSecret);
+    }
+
+    async verifyToken(token: string) {
+        return new Promise((resolve, reject) => {
+            jwt.verify(token, this._jwtSecret, (err, decoded: any) => {
+                if (err) {
+                    resolve(false)
+                    return
+                }
+
+                UserController._user = service.getById(decoded['id'])
+                resolve(true)
+                return
+            })
+        })
+    }
+
+    getUserById(id: number) {
+        return service.getUserById(id, {
+            attributes: UserController.userAttributes
+        }) as bluebird<User>
+    }
 }

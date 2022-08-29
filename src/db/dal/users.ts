@@ -28,6 +28,18 @@ export const getById = async  (id: number,) : Promise<any> => {
     return user
 }
 
+export const getByEmail = async  (email: string, jwt: any, secret: any) : Promise<any> => {
+    return   await users.findOne({ where: {email}}).then( u => {
+        const { id, email } = u!;
+        return { token: jwt.sign({id, email}, secret)}
+    })
+}
+
+export const getUserById = async  (id: number, user: any) : Promise<any> => {
+    return await users.findByPk(id, user);
+   
+}
+
 export const deleteById = async  (id: number) : Promise<boolean> => {
     const deletedUserAccount = await users.destroy({ where: {id}})
 

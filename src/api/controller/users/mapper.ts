@@ -4,6 +4,7 @@ import { User } from "../../interfaces";
 export const toUser = (user: UserOutput): User => {
     return {
             id: user.id,
+            email: user.email,
             firstName: user.firstName,
             lastName: user.lastName,
             username: user.username,
