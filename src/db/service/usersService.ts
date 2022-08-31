@@ -20,6 +20,14 @@ export const getByEmail = (email: string, jwt: any, secret: any): Promise<any> =
     return userDal.getByEmail(email, jwt,  secret);
 }
 
+export const getEmail = (email: string): Promise<any> => {
+    return userDal.getEmail(email);
+}
+
+export const checkEmailPassword = (email: any, password: any, bcrypt: any ): Promise<any> => {
+    return userDal.checkEmailPassword(email, password, bcrypt);
+}
+
 export const getUserById = (id: number , user: any): Promise<any> => {
     return userDal.getUserById(id, user);
 }

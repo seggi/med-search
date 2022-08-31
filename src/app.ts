@@ -8,7 +8,6 @@ import publicRoutes from "./api/routes/publicRoutes";
 import dbInit from "./db/init";
 import { DEBUG_ERROR_MESSAGE, DEBUG_MESSAGE } from "./constants/appText";
 
-
 dbInit()
 
 export class App {

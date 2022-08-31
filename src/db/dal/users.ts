@@ -35,6 +35,18 @@ export const getByEmail = async  (email: string, jwt: any, secret: any) : Promis
     })
 }
 
+export const getEmail = async  (email: string) : Promise<any> => {
+    return   await users.findOne({ where: {email}}).then( u => {
+        const { email } = u!;
+        return email;
+    })
+}
+
+export const checkEmailPassword = async (email: any, password: any, bcrypt: any) : Promise<any> => {
+    return  users.findOne({ where: { email } })
+    .then(u => bcrypt.compare(password, u!.password))
+}
+
 export const getUserById = async  (id: number, user: any) : Promise<any> => {
     return await users.findByPk(id, user);
    
