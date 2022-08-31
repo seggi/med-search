@@ -1,12 +1,17 @@
 FROM node:14
 
-WORKDIR /usr/src/app 
+# WORKDIR /usr/src/app 
 
-COPY package*.json ./
-COPY tsconfig.json ./
+# COPY package*.json ./
+# COPY tsconfig.json ./
 
-COPY ./src ./src 
+# COPY ./src ./src 
 
-RUN yarn install
+# ENV NODE_ENV production
+WORKDIR /usr/src/app
+COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
+RUN yarn install --production --silent && mv node_modules ../
+COPY . .
+
 
 CMD yarn start:dev
