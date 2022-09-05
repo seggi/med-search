@@ -17,7 +17,7 @@ export class App {
         this.app = express()
         this.settings()
         this.publicRoute()
-        this.privateRoute()
+        // this.privateRoute()
     }
 
     settings() {
@@ -33,10 +33,10 @@ export class App {
     }
 
     // Protected Routes
-    privateRoute() {
-        this.app.use(tokenGuard())
-        this.app.use('/api/v2',  publicRoutes)
-    }
+    // privateRoute() {
+        // this.app.use(tokenGuard())
+        // this.app.use('/api/v2',  publicRoutes)
+    // }
 
     async listen() {
         

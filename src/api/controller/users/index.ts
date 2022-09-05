@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import jwt  from 'jsonwebtoken';
 import  bluebird from "bluebird";
 
-import * as service from '../../../db/service/usersService';
+import * as service from '../../../db/services/users';
 import { CreateUserDTO, FilterUserDTO, UpdateUserDTO } from '../../dto/user.dto';
 import { User } from '../../interfaces';
 import * as mapper from './mapper';
@@ -51,14 +51,14 @@ export class UserController {
     }
 
     async register({
-        firstName, lastName, username, birthDate, email, password
+        firstName, lastName, username, email, password
     } : User) {
         const hash = await bcrypt.hash(password, this._saltRounds);
         const u = await service.create({
             firstName, lastName, email, username, password: hash
         });
 
-        return  this.getUserById(u!.id);
+        return  this.getUserById(u?.id);
     }
 
     async login({ email }: User ) {
