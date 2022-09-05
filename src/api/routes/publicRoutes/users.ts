@@ -15,13 +15,20 @@ userRouter.get('/', (req: Request, res: Response) => {
     res.status(SUCCESS_RESPONSE).send(WELCOME_MESSAGE)
 })
 
-userRouter.post('/user/login', async (req: Request, res: Response)=> {
-    const result = {data: "Start"}
-    return res.status(200).send(result)
+userRouter.post('/user/login', userRules.forLogin, async (req: Request, res: Response)=> {
+    const errors =  validationResult(req.body)
+    if (!errors.isEmpty){
+        return res.status(INVALID_INPUT).json(errors.array())
+    }
+    const user = userController.login(req.body);
+
+    return user.then(u => {
+        res.status(200).send(u)
+    })
 })
 
-userRouter.post('/user/register', userRules['forRegister'], async (req: Request, res: Response)=> {
-    const errors = validationResult(req.body);
+userRouter.post('/user/register', userRules?.forRegister, async (req: Request, res: Response)=> {
+    const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(INVALID_INPUT).json(errors.array());
     }
