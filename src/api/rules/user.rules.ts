@@ -1,6 +1,7 @@
 import bcrypt  from 'bcrypt';
 import { check } from 'express-validator/check';
-import * as service from '../../db/service/usersService';
+import * as service from '../../db/services/users';
+
 
 export const userRules = {
     forRegister: [

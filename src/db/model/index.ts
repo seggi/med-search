@@ -3,11 +3,12 @@ import Foods from "./foods";
 import Medicines from "./medicines";
 import Sickness from "./sickness";
 import Users from "./users";
+// import { create } from "./users";
 
 export default {
     users: Users,
     medicines: Medicines,
     sickness: Sickness,
     advices: Advices,
-    foods: Foods,
+    foods: Foods
 }

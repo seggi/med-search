@@ -7,6 +7,7 @@ import * as service from '../../../db/services/users';
 import { CreateUserDTO, FilterUserDTO, UpdateUserDTO } from '../../dto/user.dto';
 import { User } from '../../interfaces';
 import * as mapper from './mapper';
+import { nextTick } from 'process';
 
 export const create = async(payload: CreateUserDTO): Promise<User> => {
     return mapper.toUser(await service.create(payload))
@@ -30,7 +31,7 @@ export const getAll = async (filters: FilterUserDTO): Promise<User> => {
 }
 
 export class UserController {
-    private readonly _saltRounds = process.env.SALT_ROUNDS || 12;
+    private readonly _saltRounds = 12;
     private readonly _jwtSecret = process.env.JWT_SECRET || "";
 
     static get userAttributes() {
@@ -50,15 +51,14 @@ export class UserController {
         return UserController._user;
     }
 
-    async register({
-        firstName, lastName, username, email, password
-    } : User) {
-        const hash = await bcrypt.hash(password, this._saltRounds);
-        const u = await service.create({
-            firstName, lastName, email, username, password: hash
-        });
-
-        return  this.getUserById(u?.id);
+    async register({ username, email, password} : User) {
+        const hash = bcrypt.hashSync(password, this._saltRounds);
+        try {
+            const u = await service.create({ email, username, password: hash});
+            return  this.getUserById(u?.id);
+        } catch(e: any) {
+            nextTick(e)
+        }
     }
 
     async login({ email }: User ) {
