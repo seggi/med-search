@@ -31,12 +31,11 @@ export const getById = async  (id: number,) : Promise<any> => {
     return user
 }
 
-// export const getByEmail = async  (email: string, jwt: any, secret: any) : Promise<any> => {
-//     return   await users.findOne({ where: {email}}).then( u => {
-//         const { id, email } = u!;
-//         return { token: jwt.sign({id, email}, secret)}
-//     })
-// }
+export const getByEmail = async  (email: string, jwt: any, secret: any) : Promise<any> => {
+    // const u =   await users.findOne({ where: {email}});
+    // const { id, email } = u!;
+    // return { token: jwt.sign({id, email}, secret)}
+}
 
 // export const getEmail = async  (email: string) : Promise<any> => {
 //     return   await users.findOne({ where: {email}}).then( u => {

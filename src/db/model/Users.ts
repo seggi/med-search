@@ -55,7 +55,18 @@ const Users: ModelDefined<UsersAttributes, UserInput> = connect().define(
     },{
         tableName: "users"
     }
-)
+);
+
+Users.hasMany(Sickness,{
+    sourceKey: 'id',
+    foreignKey: 'ownerId',
+    as: 'sickness'
+})
+
+Sickness.belongsTo(Users, { targetKey: 'id'});
+
+
+
 
 export default Users;
 
