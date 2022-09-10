@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import 'dotenv/config';
 import bcrypt from "bcrypt";
 import jwt  from 'jsonwebtoken';
@@ -62,7 +63,7 @@ export class UserController {
     }
 
     async login({ email }: User ) {
-        return await service.getByEmail(email, jwt, this._jwtSecret);
+        // return await service.getByEmail(email, jwt, this._jwtSecret);
     }
 
     async verifyToken(token: string) {
