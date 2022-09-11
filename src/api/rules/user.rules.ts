@@ -7,8 +7,8 @@ export const userRules = {
     forRegister: [
         check('password')
             .isLength({ min: 8 }).withMessage('Invalid password'),
-        // check('confirmPassword')
-        //     .custom((confirmPassword, { req }) => req.body.password === confirmPassword).withMessage('Password are different')
+        check('confirmPassword')
+            .custom((confirmPassword, { req }) => req.body.password === confirmPassword).withMessage('Password are different')
     ],
 
     forLogin: [

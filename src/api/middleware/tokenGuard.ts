@@ -19,8 +19,11 @@ export const tokenGuard: (() => RequestHandler) = (() => (req: Request, res: Res
     const hasAccess = userController.verifyToken(token)
 
     hasAccess.then( a => {
-        if (!a)
-        return res.status(403).send({ message: 'No access'})
+        if (!a) {
+            return res.status(403).send({ message: 'No access'})
+        }
+        // ! TODO: After checking token to go next route
+        next
     })
 
 })

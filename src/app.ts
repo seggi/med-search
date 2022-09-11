@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { tokenGuard } from './api/middleware/tokenGuard';
 import express, { Application } from "express";
 import bodyParser from "body-parser";
@@ -5,6 +6,7 @@ import "dotenv/config";
 import cors from "cors";
 
 import publicRoutes from "./api/routes/publicRoutes";
+import privateRoutes from "./api/routes/private";
 import dbInit from "./db/init";
 import { DEBUG_ERROR_MESSAGE, DEBUG_MESSAGE } from "./constants/appText";
 
@@ -17,7 +19,7 @@ export class App {
         this.app = express()
         this.settings()
         this.publicRoute()
-        // this.privateRoute()
+        this.privateRoute()
     }
 
     settings() {
@@ -33,10 +35,10 @@ export class App {
     }
 
     // Protected Routes
-    // privateRoute() {
-        // this.app.use(tokenGuard())
-        // this.app.use('/api/v2',  publicRoutes)
-    // }
+    privateRoute() {
+        this.app.use(tokenGuard())
+        this.app.use('/api/v2',  privateRoutes)
+    }
 
     async listen() {
         
