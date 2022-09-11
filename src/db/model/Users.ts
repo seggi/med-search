@@ -1,7 +1,5 @@
-import { DataTypes, Model, ModelDefined, Optional } from "sequelize";
+import { DataTypes, Model, Optional } from "sequelize";
 import connect from "../db.config";
-import Sickness from "./sickness";
-
 
 interface UsersAttributes {
     id: number;
@@ -19,54 +17,56 @@ interface UsersAttributes {
 export type UserInput = Optional<UsersAttributes, 'id' | 'firstName' | 'lastName' | 'birthDate' | 'email'>
 export type UserOutput = Required<UsersAttributes>
 
+class Users extends Model<UsersAttributes, UserInput> implements UsersAttributes {
+    public id!: number;
+    public email!: string;
+    public firstName!: string;
+    public lastName!: string;
+    public username!: string;
+    public password!: string;
+    public birthDate!: Date;
+    public readonly createAt!: Date | undefined;
+    public readonly updateAt!: Date | undefined;
+    public readonly deleteAt!: Date | undefined;
 
-const Users: ModelDefined<UsersAttributes, UserInput> = connect().define(
-    'users',
-    {
-        id: {
-            type: DataTypes.INTEGER.UNSIGNED,
-            autoIncrement: true,
-            primaryKey: true
-        },
-        email: {
-            type:new DataTypes.STRING(128),
-            allowNull: true,
-        },
-        firstName: {
-            type:new DataTypes.STRING(128),
-            allowNull: true,
-        },
-        lastName: {
-            type:new DataTypes.STRING(128),
-            allowNull: true,
-        },
-        username: {
-            type:new DataTypes.STRING(128),
-            allowNull: false,
-        },
-        password: {
-            type:new DataTypes.STRING(128),
-            allowNull: true,
-        },
-        birthDate: {
-            type: DataTypes.DATE,
-            allowNull: true,
-        },
-    },{
-        tableName: "users"
-    }
-);
+}
 
-Users.hasMany(Sickness,{
-    sourceKey: 'id',
-    foreignKey: 'ownerId',
-    as: 'sickness'
+Users.init ({
+    id: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    firstName: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    lastName: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    birthDate: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+
+}, {
+    sequelize: connect(),
+    timestamps: true,
+    paranoid: true,
+    modelName: "users"
 })
 
-Sickness.belongsTo(Users, { targetKey: 'id'});
-
-
-
-
 export default Users;
-
