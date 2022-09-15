@@ -40,7 +40,8 @@ Sickness.init ({
 },  {
     timestamps: true,
     paranoid: true,
-    sequelize: connect()
+    sequelize: connect(),
+    modelName: "sicknesses"
 })
 
 Sickness.belongsTo(Users)

@@ -1,15 +1,22 @@
+import { ManageSickness } from './../../../controller/sickness/index';
+import { INVALID_INPUT } from './../../../../constants/response';
 
 import { Response, Request } from 'express';
 import { Router } from 'express';
-import { WELCOME_MESSAGE } from '../../../../constants/appText';
-import { SUCCESS_RESPONSE } from '../../../../constants/response';
 
+const manageSicknessR = Router()
+const manageSickness = new ManageSickness();
 
+manageSicknessR.post('/record-sickness', (req: Request, res: Response) => {
+    const requestData = req.body;
+    if (!requestData.name && !requestData.description) {
+        return res.status(INVALID_INPUT).send("Error")
+    }
 
-const manageSickness = Router()
-
-manageSickness.get('/', (req: Request, res: Response) => {
-    res.status(SUCCESS_RESPONSE).send(WELCOME_MESSAGE)
+    const sickness = manageSickness.recordSickness(requestData);
+    return sickness.then(s=> {
+        res.status(200).send(s)
+    })
 })
 
-export default manageSickness;
+export default manageSicknessR;

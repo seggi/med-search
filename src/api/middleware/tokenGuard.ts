@@ -17,13 +17,11 @@ const  getTokenFromHeaders = (headers: IncomingHttpHeaders) => {
 export const tokenGuard: (() => RequestHandler) = (() => (req: Request, res: Response, next: NextFunction) => {
     const token = getTokenFromHeaders(req.headers) || req.query.token || req.body.token || '';
     const hasAccess = userController.verifyToken(token)
-
     hasAccess.then( a => {
         if (!a) {
             return res.status(403).send({ message: 'No access'})
         }
-        // ! TODO: After checking token to go next route
-        next
+       next()
     })
 
 })

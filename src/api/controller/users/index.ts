@@ -7,7 +7,7 @@ import  bluebird from "bluebird";
 import * as service from '../../../db/services/users';
 // import { CreateUserDTO, FilterUserDTO, UpdateUserDTO } from '../../dto/user.dto';
 import { User } from '../../interfaces';
-import * as mapper from './mapper';
+import * as mapper from '../mapper';
 import { nextTick } from 'process';
 
 export class UserController {
