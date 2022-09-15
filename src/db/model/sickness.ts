@@ -38,9 +38,9 @@ Sickness.init ({
         allowNull: true,
     },
 },  {
+    sequelize: connect(),
     timestamps: true,
     paranoid: true,
-    sequelize: connect(),
     modelName: "sicknesses"
 })
 
