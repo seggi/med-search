@@ -5,13 +5,12 @@ import  * as service from "../../../db/services/sickness";
 import * as mapper from '../mapper';
 
 export class ManageSickness {
-    async recordSickness({name, description}: Sickness) {
+    async recordSickness({userId, name, description}: any) {
         try {
             const checkSickness = await service.getByName(name)
 
             if (!checkSickness) {
-                console.log(">>>>>>>");
-                const s = mapper.toSickness(await service.create({name, description}));
+                const s = mapper.toSickness(await service.create({name, description, userId}));
                 return {
                     message: "Saved with success"
                 };

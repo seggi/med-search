@@ -8,7 +8,7 @@ import { Op } from 'sequelize';
 
 const sickness = models.sickness;
 
-export const create = async (payload: sicknessInput): Promise<any> => {
+export const create = async (payload: any): Promise<any> => {
     const user =  sickness.create(payload);
     return user;
 }
