@@ -19,10 +19,11 @@ export const toUser = (user: UserOutput): User => {
     }
 }
 
-export const toSickness = (sickness: sicknessOutput): Sickness => {
+export const toSickness = (sickness: any): Sickness => {
     return {
         id: sickness.id,
         name: sickness.name,
+        userId: sickness.userId,
         description: sickness.description,
         createdAt: sickness.createdAt,
         updatedAt: sickness.updatedAt,

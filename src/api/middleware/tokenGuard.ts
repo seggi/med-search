@@ -2,6 +2,7 @@ import { UserController } from './../controller/users/index';
 import { IncomingHttpHeaders } from "http";
 import { RequestHandler, Request, Response, NextFunction } from 'express';
 
+
 const userController = new UserController();
 
 const  getTokenFromHeaders = (headers: IncomingHttpHeaders) => {
@@ -25,3 +26,4 @@ export const tokenGuard: (() => RequestHandler) = (() => (req: Request, res: Res
     })
 
 })
+
