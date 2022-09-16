@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-import { GetSicknessFilters } from './types';
 import Sickness, { sicknessInput } from '../model/sickness';
 import models from "../model";
 import { Op } from 'sequelize';
@@ -46,13 +44,8 @@ export const deleteById = async  (id: number) : Promise<boolean> => {
     return true;
 }
 
-export const getAll = async  (filters?: GetSicknessFilters,) : Promise<any> => {
-    return sickness.findAll({
-        where: {
-            ...(filters?.isDeleted && {deleteAt: { [Op.not]: null}})
-        },
-        ...((filters?.isDeleted || filters?.inCludeDeleted) && {paranoid: true})
-    })
+export const getAll = async  () : Promise<any> => {
+    return sickness.findAll();
 }
 
 

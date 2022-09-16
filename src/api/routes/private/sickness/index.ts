@@ -1,3 +1,4 @@
+import { sicknessInput } from './../../../../db/model/sickness';
 import { CurrentUser } from './../../../middleware/currentUser';
 import { ManageSickness } from './../../../controller/sickness/index';
 import { INVALID_INPUT } from './../../../../constants/response';
@@ -24,6 +25,13 @@ manageSicknessR.post('/record-sickness', (req: Request, res: Response) => {
     }
     const sickness = manageSickness.recordSickness(new_data);
     return sickness.then(s=> {
+        res.status(200).send(s)
+    })
+})
+
+manageSicknessR.get("/retrieve-sickness",(req: Request, res: Response) => {
+    const sickness = manageSickness.retrieveSickness();
+    return  sickness.then(s => {
         res.status(200).send(s)
     })
 })

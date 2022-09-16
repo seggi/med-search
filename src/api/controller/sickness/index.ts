@@ -10,7 +10,7 @@ export class ManageSickness {
             const checkSickness = await service.getByName(name)
 
             if (!checkSickness) {
-                const s = mapper.toSickness(await service.create({name, description, userId}));
+                mapper.toSickness(await service.create({name, description, userId}));
                 return {
                     message: "Saved with success"
                 };
@@ -19,6 +19,15 @@ export class ManageSickness {
             return {
                 message: "Sickness already exist."
             }
+        } catch (e: any) {
+            nextTick(e)
+        }
+    }
+
+    async retrieveSickness() {
+        try {
+            const sickness = service.getAll();
+            return sickness;
         } catch (e: any) {
             nextTick(e)
         }
