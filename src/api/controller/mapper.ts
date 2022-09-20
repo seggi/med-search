@@ -1,6 +1,6 @@
-import { sicknessOutput } from '../../db/model/sickness';
 import { UserOutput } from '../../db/model/users';
 import { User } from "../interfaces";
+import { Medicine } from '../interfaces/medicine.interface';
 import { Sickness } from '../interfaces/sickness.interface';
 
 export const toUser = (user: UserOutput): User => {
@@ -31,4 +31,19 @@ export const toSickness = (sickness: any): Sickness => {
    
     }
 }
+
+
+export const toMedicine = (medicine: any): Medicine => {
+    return {
+        id: medicine.id,
+        name: medicine.name,
+        posology: medicine.posology,
+        description: medicine.description,
+        userId: medicine.userId,
+        createdAt: medicine.createdAt,
+        updatedAt: medicine.updatedAt,
+        deletedAt: medicine.deletedAt
+    }
+}
+
 

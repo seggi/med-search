@@ -11,10 +11,10 @@ interface MedicinesAttributes {
     deletedAt?: Date;
 }
 
-export type AdviceInput = Optional<MedicinesAttributes, 'id' | "description" | "posology">
-export type AdviceOutput = Required<MedicinesAttributes>
+export type MedicineInput = Optional<MedicinesAttributes, 'id' | "description" | "posology">
+export type MedicineOutput = Required<MedicinesAttributes>
 
-class Medicines extends Model<MedicinesAttributes, AdviceInput> implements MedicinesAttributes {
+class Medicines extends Model<MedicinesAttributes, MedicineInput> implements MedicinesAttributes {
     public id!: number;
     public description!: string;
     public name!: string;
