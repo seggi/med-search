@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Sickness, { sicknessInput } from '../model/sickness';
 import models from "../model";
-import { Op } from 'sequelize';
-
 
 const sickness = models.sickness;
 

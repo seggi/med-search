@@ -1,6 +1,6 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import connect from '../db.config';
-import Sickness from './sickness';
+import Users from './users';
 interface MedicinesAttributes {
     id: number;
     name: string;
@@ -48,7 +48,7 @@ Medicines.init ({
     paranoid: true
 })
 
-Medicines.belongsTo(Sickness)
-Sickness.hasMany(Medicines)
+Medicines.belongsTo(Users)
+Users.hasMany(Medicines)
 
 export default Medicines;
