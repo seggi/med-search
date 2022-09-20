@@ -31,7 +31,7 @@ Medicines.init ({
         primaryKey: true
     },
     posology: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true,
     },
     name: {
@@ -45,7 +45,8 @@ Medicines.init ({
 },  {
     timestamps: true,
     sequelize: connect(),
-    paranoid: true
+    paranoid: true,
+    modelName: "medicines"
 })
 
 Medicines.belongsTo(Users)
