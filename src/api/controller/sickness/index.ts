@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { nextTick } from 'process';
-import { Sickness } from "../../interfaces/sickness.interface";
 import  * as service from "../../../db/services/sickness";
 import * as mapper from '../mapper';
 
@@ -28,6 +27,17 @@ export class ManageSickness {
         try {
             const sickness = service.getAll();
             return sickness;
+        } catch (e: any) {
+            nextTick(e)
+        }
+    }
+
+    async updateSickness({id, payload}: {id: any, payload: any}) {
+        try {
+            const s = service.update(id, payload);
+            return {
+                message: "Sickness updated with success."
+            }
         } catch (e: any) {
             nextTick(e)
         }

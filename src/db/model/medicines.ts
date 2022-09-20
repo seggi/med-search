@@ -1,6 +1,6 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import connect from '../db.config';
-import Sickness from './sickness';
+import Users from './users';
 interface MedicinesAttributes {
     id: number;
     name: string;
@@ -11,10 +11,10 @@ interface MedicinesAttributes {
     deletedAt?: Date;
 }
 
-export type AdviceInput = Optional<MedicinesAttributes, 'id' | "description" | "posology">
-export type AdviceOutput = Required<MedicinesAttributes>
+export type MedicineInput = Optional<MedicinesAttributes, 'id' | "description" | "posology">
+export type MedicineOutput = Required<MedicinesAttributes>
 
-class Medicines extends Model<MedicinesAttributes, AdviceInput> implements MedicinesAttributes {
+class Medicines extends Model<MedicinesAttributes, MedicineInput> implements MedicinesAttributes {
     public id!: number;
     public description!: string;
     public name!: string;
@@ -31,7 +31,7 @@ Medicines.init ({
         primaryKey: true
     },
     posology: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true,
     },
     name: {
@@ -45,10 +45,11 @@ Medicines.init ({
 },  {
     timestamps: true,
     sequelize: connect(),
-    paranoid: true
+    paranoid: true,
+    modelName: "medicines"
 })
 
-Medicines.belongsTo(Sickness)
-Sickness.hasMany(Medicines)
+Medicines.belongsTo(Users)
+Users.hasMany(Medicines)
 
 export default Medicines;

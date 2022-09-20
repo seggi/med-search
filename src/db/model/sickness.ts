@@ -15,6 +15,7 @@ export type sicknessInput = Optional<SicknessAttributes, 'id'>
 export type sicknessOutput = Required<SicknessAttributes>
 
 class Sickness extends Model {
+    [x: string]: any;
     public id!:  number;
     public name!: string;
     public description!: string;
