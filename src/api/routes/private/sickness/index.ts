@@ -1,4 +1,3 @@
-import { sicknessInput } from './../../../../db/model/sickness';
 import { CurrentUser } from './../../../middleware/currentUser';
 import { ManageSickness } from './../../../controller/sickness/index';
 import { INVALID_INPUT } from './../../../../constants/response';
@@ -29,11 +28,17 @@ manageSicknessR.post('/record-sickness', (req: Request, res: Response) => {
     })
 })
 
-manageSicknessR.get("/retrieve-sickness",(req: Request, res: Response) => {
+manageSicknessR.get("/retrieve-sickness",async (req: Request, res: Response) => {
     const sickness = manageSickness.retrieveSickness();
-    return  sickness.then(s => {
-        res.status(200).send(s)
-    })
+    const s = await sickness;
+    res.status(200).send(s);
 })
+
+manageSicknessR.put("/update-sickness/:sicknessId", async (req: Request, res: Response) => {
+    const sicknessId = req.params.sicknessId;
+    const payload = req.body;
+    const s = await manageSickness.updateSickness({id: sicknessId, payload: payload})
+    return res.status(200).send(s);
+} )
 
 export default manageSicknessR;
