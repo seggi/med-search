@@ -6,6 +6,7 @@ const dbInit = () => {
     models.users.sync({ alter: isDev})
     models.sickness.sync({ alter: isDev})
     models.medicines.sync({ alter: isDev })
+    models.sicknessMedicine.sync({ alter: isDev })
 }
 
 export default dbInit;

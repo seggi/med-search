@@ -3,7 +3,6 @@ import connect from '../db.config';
 import Medicines from './medicines';
 import Sickness from './sickness';
 
-
 interface SicknessMedicinesAttributes {
     id: number;
     createdAt?: Date;

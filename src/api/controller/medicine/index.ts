@@ -6,8 +6,8 @@ import * as mapper from '../mapper';
 export class ManageMedicine {
     async recordMedicine({userId, name, description, posology}: any) {
         try {
-            const checkMedicine = await service.getByName(name)
-
+            const checkMedicine = await service.getByName(name);
+            
             if (!checkMedicine) {
                 mapper.toMedicine(await service.create({name, description, userId, posology}));
                 return {
@@ -28,7 +28,7 @@ export class ManageMedicine {
             const medicine = service.getAll();
             return medicine;
         } catch (e: any) {
-            nextTick(e)
+            nextTick(e);
         }
     }
 
