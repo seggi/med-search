@@ -6,6 +6,7 @@ interface SicknessAttributes {
     id: number;
     name: string;
     description: string;
+    treatment: string;
     createdAt?: Date;
     updatedAt?: Date;
     deletedAt?: Date;
@@ -19,6 +20,7 @@ class Sickness extends Model {
     public id!:  number;
     public name!: string;
     public description!: string;
+    public treatment!: string;
     public readonly createAt!: Date | undefined;
     public readonly updateAt!: Date | undefined;
     public readonly deleteAt!: Date | undefined;
@@ -35,6 +37,10 @@ Sickness.init ({
         allowNull: true,
     },
     description: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    treatment: {
         type: DataTypes.STRING,
         allowNull: true,
     },

@@ -1,8 +1,8 @@
+// ! To be removed in the future
 import { DataTypes, Model, Optional } from 'sequelize';
 import connect from '../db.config';
 import Medicines from './medicines';
 import Sickness from './sickness';
-
 
 interface SicknessMedicinesAttributes {
     id: number;
@@ -42,7 +42,7 @@ SicknessMedicine.init({
     timestamps: true,
     paranoid: true,
     modelName: "sickness_medicine"
-})
+});
 
 SicknessMedicine.belongsTo(Sickness)
 Sickness.hasMany(SicknessMedicine)
